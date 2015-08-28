@@ -1,0 +1,8 @@
+node_modules
+dist
+bower_components/*
+!bower_components/star-rating
+.tmp
+.gitreview
+.idea/*
+*.iml

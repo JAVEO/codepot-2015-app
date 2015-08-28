@@ -1,0 +1,37 @@
+<dom-module id="timeslot-element">
+  <style>
+    paper-item {
+      cursor: pointer;
+    }
+  </style>
+
+  <template>
+    <paper-item on-tap="showTimeSlotPresentations">
+      <paper-item-body two-line class="layout vertical">
+        <div>{{workshop.name}}</div>
+      </paper-item-body>
+      <br>
+    </paper-item>
+
+  </template>
+
+  <script>
+    (function () {
+      Polymer({
+        is: 'timeslot-element',
+        properties: {
+          workshop: {
+            type: Object
+          }
+        },
+        showTimeSlotPresentations: function(){
+          this.fire('timeslot-clicked', {
+            timeslot: this.workshop.timeslot
+          });
+        },
+        ready: function(){
+        }
+      });
+    })();
+  </script>
+</dom-module>

@@ -1,0 +1,31 @@
+<dom-module id="tutor-item">
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 150px;
+        }
+    </style>
+
+    <template>
+        <img src="{{buildImagePath(tutor.pictureUrl)}}" />
+        <span>[[tutor.image]]</span>
+        <span>[[tutor.firstName]]</span> <span>[[tutor.lastName]]</span>
+    </template>
+    <script>
+        Polymer({
+            is: 'tutor-item',
+
+            properties: {
+                tutor: {
+                    type: Object,
+                    value: {}
+                }
+            },
+
+            buildImagePath: function(uri) {
+                return "https://codepot.pl/" + uri;
+            }
+        });
+    </script>
+</dom-module>

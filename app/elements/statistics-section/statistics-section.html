@@ -1,0 +1,62 @@
+<dom-module id="statistics-section">
+  <style>
+    code {
+      color: #007000;
+    }
+
+    google-chart {
+      display: -webkit-flex;
+      display: -ms-flex;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <template>
+      <paper-material elevation="1">
+
+        <google-chart id="chart" style="width:800px; height:3000px"
+                      type='bar'
+                      options='{"title": "Workshop stats", "fontSize":10, "width":800, "height": 3000, "chartArea": {"left":"300", "top":100, "width": 400}, "hAxis": { "ticks": [0, 1, 2, 3, 4, 5]}}'
+                      cols='[{"label": "Workshop", "type": "string"},{"label": "Stars", "type": "number"}]'
+                      rows='{{stats}}'>
+        </google-chart>
+
+      </paper-material>
+  </template>
+
+  <script>
+    function avg(rates) {
+      if (!rates || rates.length === 0) {
+        return 0;
+      }
+
+      var sum = rates.reduce(function (a, b) {
+        return a + b;
+      });
+
+      return Math.round(sum / rates.length * 100) / 100;
+    }
+
+    (function () {
+      Polymer({
+        is: 'statistics-section',
+        extract: function (e) {
+          return [e.title, avg(e.rates)];
+        },
+        computeValue: function (workshops) {
+          return workshops.map(this.extract);
+        },
+        properties: {
+          workshops: {
+            type: Array
+          },
+          stats: {
+            type: Array,
+            computed: 'computeValue(workshops)'
+          }
+        }
+      });
+    })();
+  </script>
+</dom-module>
