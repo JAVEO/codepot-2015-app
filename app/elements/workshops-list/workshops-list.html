@@ -26,7 +26,6 @@
                     <template is="dom-repeat" items="{{workshop.tutors}}" as="tutor">
                         <tutor-item tutor="{{tutor}}"></tutor-item>
                     </template>
-                    <my-star-rating on-rate-changed="addrate" workshop="{{workshop}}"></my-star-rating>
                 </paper-material>
           </template>
         </div>
@@ -34,28 +33,11 @@
     <script>
         Polymer({
             is: "workshops-list",
-            addrate: function (event) {
-                var workshopIndex = this.titleToId[event.detail.workshop.title];
-                var rates = this.workshops[workshopIndex].rates;
-                if (!rates) rates = [];
-                rates.push(event.detail.rate);
-                this.set('workshops.' + workshopIndex + '.rates', rates);
-            },
-
             refresh: function(event) {
                 console.log(event.detail.timeslot);
               this.set("filtered", this.workshops.filter(function(workshop) {
                 return workshop.timeslot == event.detail.timeslot;
               }))
-            },
-            extractIds: function (workshops) {
-                var titles = {};
-
-                for (var i in workshops) {
-                    titles[workshops[i].title] = i ;
-                }
-
-                return titles;
             },
             properties: {
               workshops: {
@@ -66,10 +48,6 @@
                 type: Array,
                 value: []
               },
-                titleToId: {
-                    type: Object,
-                    computed: 'extractIds(workshops)'
-                },
               agendaValues: {
                 type: Array,
                 value: [
